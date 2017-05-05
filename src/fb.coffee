@@ -184,6 +184,8 @@ class FBMessenger extends Adapter
 
     _getUser: (userId, page, callback) ->
         self = @
+        if process.env['FB_DEBUG'] == "true"
+            self.robot.logger.error 'Get user URL: #{@apiURL}/#{userId}?fields=first_name,last_name,profile_pic&access_token=#{self.token}'
 
         @robot.http(@apiURL + '/' + userId)
             .query({fields:"first_name,last_name,profile_pic",access_token:self.token})
